@@ -27,7 +27,7 @@ The installation process will covers:
 
 ### Install and configure an Active Directory (AD) server.
 
-[![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://img.youtube.com/vi/ztP-Yvn8TZE/default.jpg)](https://youtu.be/ztP-Yvn8TZE)
+[![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://img.youtube.com/vi/ztP-Yvn8TZE/hqdefault.jpg)](https://youtu.be/ztP-Yvn8TZE)
 
 - provision a window server 2016 instance on GCP console.
 - install AD and register a custom domain.
@@ -48,7 +48,7 @@ The installation process will covers:
 
 ### Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
 
-[![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://img.youtube.com/vi/u3fiFLDf4Tg/default.jpg)](https://youtu.be/u3fiFLDf4Tg)
+[![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://img.youtube.com/vi/u3fiFLDf4Tg/hqdefault.jpg)](https://youtu.be/u3fiFLDf4Tg)
 
 - create an google identity account for AD sync.
 - create an AD account for AD sync.
@@ -64,7 +64,7 @@ download Directory Sync [here](https://tools.google.com/dlpage/dirsync/thankyou.
 
 ### Install and configure an Active Directory Federation Services(ADFS).
 
-[![Video: Install and configure Active Directory Federated Services & Cloud Identity](https://img.youtube.com/vi/af_mjXHbSQQ/default.jpg)](https://youtu.be/af_mjXHbSQQ)
+[![Video: Install and configure Active Directory Federated Services & Cloud Identity](https://img.youtube.com/vi/af_mjXHbSQQ/hqdefault.jpg)](https://youtu.be/af_mjXHbSQQ)
 
 - install and configure ADFS to be available to access.
 - configure mapping of AD email attribute to SAML NameID
@@ -72,6 +72,6 @@ download Directory Sync [here](https://tools.google.com/dlpage/dirsync/thankyou.
 
 ### Testing on the deployment.
 
-[![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/default.jpg)](https://youtu.be/6u0WblK6Kb8)
+[![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/hqdefault.jpg)](https://youtu.be/6u0WblK6Kb8)
 
 - Login to GCP console with an AD user account.
