@@ -26,7 +26,7 @@ The installation process will covers:
 
 ### Install and configure an Active Directory (AD) server.
 
-![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://img.youtube.com/vi/ztP-Yvn8TZE/hqdefault.jpg "Install Microsoft Active Directory(AD) on Google Cloud Platform")
+![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://youtu.be/ztP-Yvn8TZE "Install Microsoft Active Directory(AD) on Google Cloud Platform")
 
 - provision a window server 2016 instance on GCP console.
 - install AD and register a custom domain.
@@ -34,7 +34,7 @@ The installation process will covers:
 ### Create Account on Cloud Identity for Directory Sync
 1. Login to [Google Admin](https://admin.google.com/) with your administrator account.
 
-![Google Admin Console](/images/cloud-identity-1.png "Google Admin Console")
+![Google Admin Console](images/cloud-identity-1.png "Google Admin Console")
 2. Click the `Users` -> `Add new user`, then create a user for Directory Sync.
 
 ![Create user](images/cloud-identity-2.png "Create user")
@@ -47,7 +47,7 @@ The installation process will covers:
 
 ### Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
 
-![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://img.youtube.com/vi/u3fiFLDf4Tg/hqdefault.jpg "Install/Configure Google Cloud Directory Sync(GCDS) for AD sync")
+![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://youtu.be/u3fiFLDf4Tg "Install/Configure Google Cloud Directory Sync(GCDS) for AD sync")
 
 - create an google identity account for AD sync.
 - create an AD account for AD sync.
