@@ -38,7 +38,7 @@ The installation process will covers:
 ![Google Admin Console](images/cloud-identity-1.png "Google Admin Console")
 2. Click the `Users` -> `Add new user`, then create a user for Directory Sync.
 
-![Create user](images/cloud-identity-2.png "Create user")
+![Create user](images/cloud-identity-2.png =800x "Create user")
 
 3. Locate the new created user and click it to open.
 4. Under Admin roles and privileges, click `Assign Roles`.
