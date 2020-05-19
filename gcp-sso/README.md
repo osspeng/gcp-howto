@@ -75,7 +75,3 @@ download Directory Sync [here](https://tools.google.com/dlpage/dirsync/thankyou.
 [![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/default.jpg)](https://youtu.be/6u0WblK6Kb8)
 
 - Login to GCP console with an AD user account.
-
-
-
-//////////////////////////////////////////////////////////////////////
