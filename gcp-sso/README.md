@@ -20,13 +20,14 @@ The installation process will covers:
 5. Testing on the deployment.
 
 ### Prerequisites
-- A domain name which can be resolved on internet.
+- A domain name which can be resolved on the internet.
+- Prepare a valid certificate for the ADFS domain.
 - [Register](https://cloud.google.com/identity/signup/premium/welcome) the Google Cloud Identity using the domain name.
 - Register Google Cloud Platform account for hosting the AD & ADFS.
 
 ### Install and configure an Active Directory (AD) server.
 
-![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://youtu.be/ztP-Yvn8TZE "Install Microsoft Active Directory(AD) on Google Cloud Platform")
+[![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://img.youtube.com/vi/ztP-Yvn8TZE/default.jpg)](https://youtu.be/ztP-Yvn8TZE)
 
 - provision a window server 2016 instance on GCP console.
 - install AD and register a custom domain.
@@ -47,7 +48,7 @@ The installation process will covers:
 
 ### Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
 
-![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://youtu.be/u3fiFLDf4Tg "Install/Configure Google Cloud Directory Sync(GCDS) for AD sync")
+[![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://img.youtube.com/vi/u3fiFLDf4Tg/default.jpg)](https://youtu.be/u3fiFLDf4Tg)
 
 - create an google identity account for AD sync.
 - create an AD account for AD sync.
@@ -61,22 +62,17 @@ download Directory Sync [here](https://tools.google.com/dlpage/dirsync/thankyou.
 1. you can either use the `domain\username` or `username@[FQDN]` format for Authorized User under the LDAP Configuration.
 2. When create users for testing, the **email** attribute must be set.
 
-### Install and configure an Active Directory Federation Servicer(ADFS) server.
+### Install and configure an Active Directory Federation Services(ADFS).
 
-![Video: Install Active Directory Federated Services ](https://img.youtube.com/vi/rrcHM7aBM7o/hqdefault.jpg "Install Active Directory Federated Services")
+[![Video: Install and configure Active Directory Federated Services & Cloud Identity](https://img.youtube.com/vi/af_mjXHbSQQ/default.jpg)](https://youtu.be/af_mjXHbSQQ)
 
-- install ADFS
-- configure the server
-
-### Configure Cloud Identity to use ADFS for user authentication.
-
-![Video: Config ADFS as external IDP for Cloud Identity ](https://img.youtube.com/vi/S_jhqAUt0eo/hqdefault.jpg "Config ADFS as external IDP for Cloud Identity")
-
-- configure Cloud Identity 
+- install and configure ADFS to be available to access.
+- configure mapping of AD email attribute to SAML NameID
+- configure Cloud Identity to use ADFS as external IDP.
 
 ### Testing on the deployment.
 
-![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/hqdefault.jpg "Verify ADFS and Cloud Identity integration")
+[![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/default.jpg)](https://youtu.be/6u0WblK6Kb8)
 
 - Login to GCP console with an AD user account.
 
