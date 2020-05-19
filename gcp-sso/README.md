@@ -25,57 +25,61 @@ The installation process will covers:
 - Register Google Cloud Platform account for hosting the AD & ADFS.
 
 ### Install and configure an Active Directory (AD) server.
-[Video]
+
+![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://img.youtube.com/vi/ztP-Yvn8TZE/hqdefault.jpg "Install Microsoft Active Directory(AD) on Google Cloud Platform")
+
 - provision a window server 2016 instance on GCP console.
-- RDP to the server
-- install AD
+- install AD and register a custom domain.
+
+### Create Account on Cloud Identity for Directory Sync
+1. Login to [Google Admin](https://admin.google.com/) with your administrator account.
+
+![Google Admin Console](/images/cloud-identity-1.png "Google Admin Console")
+2. Click the `Users` -> `Add new user`, then create a user for Directory Sync.
+
+![Create user](images/cloud-identity-2.png "Create user")
+
+3. Locate the new created user and click it to open.
+4. Under Admin roles and privileges, click `Assign Roles`.
+5. Assign `Super Admin` role to the user.
+
+![Assign Super Admin](images/cloud-identity-3.png "Assign Super Admin")
 
 ### Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
-[Video]
+
+![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://img.youtube.com/vi/u3fiFLDf4Tg/hqdefault.jpg "Install/Configure Google Cloud Directory Sync(GCDS) for AD sync")
+
 - create an google identity account for AD sync.
 - create an AD account for AD sync.
 - install and config Google Cloud Directory Sync.
 - create a AD user and test sync.
 
+*Resource*:
+download Directory Sync [here](https://tools.google.com/dlpage/dirsync/thankyou.html)
+
+*Tips*:
+1. you can either use the `domain\username` or `username@[FQDN]` format for Authorized User under the LDAP Configuration.
+2. When create users for testing, the **email** attribute must be set.
+
 ### Install and configure an Active Directory Federation Servicer(ADFS) server.
-[Video]
+
+![Video: Install Active Directory Federated Services ](https://img.youtube.com/vi/rrcHM7aBM7o/hqdefault.jpg "Install Active Directory Federated Services")
+
 - install ADFS
 - configure the server
 
 ### Configure Cloud Identity to use ADFS for user authentication.
-[Video]
+
+![Video: Config ADFS as external IDP for Cloud Identity ](https://img.youtube.com/vi/S_jhqAUt0eo/hqdefault.jpg "Config ADFS as external IDP for Cloud Identity")
+
 - configure Cloud Identity 
 
 ### Testing on the deployment.
-[Video]
+
+![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/hqdefault.jpg "Verify ADFS and Cloud Identity integration")
+
 - Login to GCP console with an AD user account.
 
 
-doing these steps in Auth0
-- create a new **application** (with regular web app as type)
-- download **PEM** file under advanced settings.
-- SAML URL:
-` https://dev-peuew6z0.auth0.com/samlp/0lWWXM8mtjQl3XgFL6H0i5AZAB1EJz9D`
-- enable SAML addon in Addon page (fill the Callback URL with `https://console.cloud.google.com/`) and record all required information in the Usage page.
 
-
-configure SSO in [Cloud Admin](https://admin.google.com/u/4/ac/security/sso?hl=en&c_hn=https://admin.google.com)
-
-
-
-### AD installation
-- set local ip
-- 
-
-
-
-
-### Most useful shortcuts
-
-- `CTRL + O` to open files
-- `CTRL + T` to open a new tab
-- `CTRL + S` to save the current file or tab
-
-### References
-- [Auth0 as Identity Provider](https://auth0.com/docs/protocols/saml/saml-idp-generic#2-configure-auth0-as-idp)
-- 
+//////////////////////////////////////////////////////////////////////
