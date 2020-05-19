@@ -35,16 +35,17 @@ The installation process will covers:
 ### Create Account on Cloud Identity for Directory Sync
 1. Login to [Google Admin](https://admin.google.com/) with your administrator account.
 
-![Google Admin Console](images/cloud-identity-1.png "Google Admin Console")
+<img src="images/cloud-identity-1.png" alt="Google Admin Console" width="800"/>
+
 2. Click the `Users` -> `Add new user`, then create a user for Directory Sync.
 
-![Create user](images/cloud-identity-2.png =800x "Create user")
+<img src="images/cloud-identity-2.png" alt="Create user" width="400"/>
 
 3. Locate the new created user and click it to open.
 4. Under Admin roles and privileges, click `Assign Roles`.
 5. Assign `Super Admin` role to the user.
 
-![Assign Super Admin](images/cloud-identity-3.png "Assign Super Admin")
+<img src="images/cloud-identity-3.png" alt="Assign Super Admin" width="800"/>
 
 ### Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
 
