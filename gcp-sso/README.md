@@ -95,11 +95,10 @@ Write-Host $Env:ProgramData
 - configure Cloud Identity to use ADFS as external IDP.
 
 *Resource*:
-- CA cert(how-to) (**TBD**)
-- 
 
 *Tips*:
-- 
+
+- a SSL cert in ptx format will be required in the installation, you can [Generate SSL certificate using Let's Encrypt](https://medium.com/@saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7)
 
 ### E. Testing on the deployment.
 
@@ -115,6 +114,90 @@ Write-Host $Env:ProgramData
 - create a powershell script(ps1) for GCDS.
 - create a schedule task for the ps1 script.
 - manual trigger the task.
+
+*Resource*:
+
+- powershell script sample
+
+````
+[CmdletBinding()]
+Param(
+    [Parameter(Mandatory=$True, Position=1)]
+    [string]$config,
+
+    [Parameter(Mandatory=$True, Position=1)]
+    [string]$gcdsInstallationDir
+)
+
+import-module ActiveDirectory
+
+# Stop on error.
+$ErrorActionPreference ="stop"
+
+# Ensure it's an absolute path.
+$rawConfigPath = [System.IO.Path]::Combine((pwd).Path, $config)
+
+# Discover closest GC in current domain.
+$dc = Get-ADDomainController -discover -Service "GlobalCatalog" -NextClosestSite
+Write-Host ("Using Global Catalog server {0} of domain {1} as LDAP source" -f [string]$dc.HostName, $dc.Domain)
+
+# Load XML and replace the endpoint.
+$dom = [xml](Get-Content $rawConfigPath)
+$ldapConfigNode = $dom.SelectSingleNode("//plugin[@class='com.google.usersyncapp.plugin.ldap.LDAPPlugin']/config")
+
+# Tweak the endpoint.
+$ldapConfigNode.hostname = [string]$dc.HostName
+$ldapConfigNode.ldapCredMachineName = [string]$dc.HostName
+$ldapConfigNode.port = "3268"   # Always use Global Catalog port
+
+# Tweak the tsv files location
+$googleConfigNode = $dom.SelectSingleNode("//plugin[@class='com.google.usersyncapp.plugin.google.GooglePlugin']/config")
+$googleConfigNode.nonAddressPrimaryKeyMapFile = [System.IO.Path]::Combine((pwd).Path, "nonAddressPrimaryKeyFile.tsv")
+$googleConfigNode.passwordTimestampFile = [System.IO.Path]::Combine((pwd).Path, "passwordTimestampCache.tsv")
+
+# Save resulting config.
+$targetConfigPath = $rawConfigPath + ".autodiscover"
+
+$writer = New-Object System.IO.StreamWriter($targetConfigPath, $False, (New-Object System.Text.UTF8Encoding($False)))
+$dom.Save($writer)
+$writer.Close()
+
+# Run synchronization.
+Start-Process -FilePath "$gcdsInstallationDir\sync-cmd" `
+    -Wait -ArgumentList "--apply --loglevel INFO --config ""$targetConfigPath"""
+````
+
+- copying GCDS required key from your own profile to the profile of `NT AUTHORITY\LOCAL SERVICE`:
+
+````
+New-Item -Path Registry::HKEY_USERS\S-1-5-19\SOFTWARE\JavaSoft\Prefs\com\google\usersyncapp -Force
+
+Copy-Item -Path Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\SOFTWARE\JavaSoft\Prefs\com\google\usersyncapp\util `
+    -Destination Microsoft.PowerShell.Core\Registry::HKEY_USERS\S-1-5-19\SOFTWARE\JavaSoft\Prefs\com\google\usersyncapp\util
+````
+
+- task scheduler sample
+
+````
+$taskName = "Synchronize to Cloud Identity"
+$gcdsDir = "$Env:ProgramData\gcds"
+
+$action = New-ScheduledTaskAction -Execute 'PowerShell.exe' `
+  -Argument "-ExecutionPolicy Bypass -NoProfile $gcdsDir\sync.ps1 -config $gcdsDir\config.xml -gcdsInstallationDir '$Env:Programfiles\Google Cloud Directory Sync'" `
+  -WorkingDirectory $gcdsDir
+$trigger = New-ScheduledTaskTrigger `
+  -Once `
+  -At (Get-Date) `
+  -RepetitionInterval (New-TimeSpan -Minutes 60) `
+  -RepetitionDuration (New-TimeSpan -Days (365 * 20))
+
+$principal = New-ScheduledTaskPrincipal -UserID "NT AUTHORITY\LOCAL SERVICE" -LogonType ServiceAccount
+Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName $taskName
+
+$task = Get-ScheduledTask -TaskName "$taskName"
+$task.Settings.ExecutionTimeLimit = "PT12H"
+Set-ScheduledTask $task
+````
 
 ### Usfel Note
 - CLI for running GCDS
