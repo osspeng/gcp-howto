@@ -1,6 +1,6 @@
-# How to set an external IDP with Cloud Identity for GCP
+# How to set an external IDP with Cloud Identity for GCP ([中文版本](README_zh-TW.md))
 
-To authenticate user to log on GCP console, the Google Cloud Identity is the default setup. It's easy for anybody who has a Google account to login. However for business users, many of them already have their existing authentication systems, the Microsoft Active Directory(AD) is a well-known example. To fulfil the use case, Google Cloud Identity can also integrate 3rd-party solution as its' identity provider(IDP).
+To authenticate user to log on [GCP console](https://console.cloud.google.com/), the Google Cloud Identity is the default setup. It's easy for anybody who has a Google account to login. However for business users, many of them already have their existing authentication systems, the Microsoft Active Directory(AD) is a well-known example. To fulfil the use case, Google Cloud Identity can also integrate 3rd-party solution as its' identity provider(IDP).
 
 In the following article, I'm going to show how to setup an external IDP for Cloud Identity to authenticate users log on to GCP console. The whole demo will all build from the ground as you just opened for business. The external IDP I select here is Active Directory (AD) with Active Directory Federation Service (ADFS), you may be using other IDP solutions like Okta, Keycloak, etc.
 
@@ -111,7 +111,7 @@ Write-Host $Env:ProgramData
 
 [![Video: Schedule GCDS to run periodically](https://img.youtube.com/vi/ssvLMPBh1WQ/hqdefault.jpg)](https://youtu.be/ssvLMPBh1WQ)
 
-- create a powershell script(ps1) for GCDS.
+- create a PowerShell script(ps1) for GCDS.
 - create a schedule task for the ps1 script.
 - manual trigger the task.
 
