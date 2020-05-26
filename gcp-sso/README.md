@@ -10,7 +10,11 @@ In the following article, I'm going to show how to setup an external IDP for Clo
 This article is inspired by the [Google Cloud hybrid cloud solution tutorial](https://cloud.google.com/solutions/federating-gcp-with-active-directory-configuring-single-sign-on), you may find more detail explanation there.
 
 ## Getting started
-Before following the steps to setup the sample environment, please make sure you got all the prerequisites ready on hands.
+Before following the steps to setup the sample environment, please make sure you got all the *prerequisites* ready on hands:
+- A domain name which can be resolved on the internet.
+- Prepare a valid certificate for the ADFS domain.
+- [Register](https://cloud.google.com/identity/signup/premium/welcome) the Google Cloud Identity using the domain name.
+- Register Google Cloud Platform account for hosting the AD & ADFS.
 
 The installation process will covers:
 1. Install and configure an Active Directory (AD) server.
@@ -19,13 +23,7 @@ The installation process will covers:
 4. Configure Cloud Identity to use ADFS for user authentication.
 5. Testing on the deployment.
 
-### Prerequisites
-- A domain name which can be resolved on the internet.
-- Prepare a valid certificate for the ADFS domain.
-- [Register](https://cloud.google.com/identity/signup/premium/welcome) the Google Cloud Identity using the domain name.
-- Register Google Cloud Platform account for hosting the AD & ADFS.
-
-### A. Install and configure an Active Directory (AD) server.
+## A. Install and configure an Active Directory (AD) server.
 
 [![Video: Install Microsoft Active Directory(AD) on Google Cloud Platform](https://img.youtube.com/vi/ztP-Yvn8TZE/hqdefault.jpg)](https://youtu.be/ztP-Yvn8TZE)
 
@@ -35,10 +33,10 @@ The installation process will covers:
 *Tips*:
 - check the box of enable Https when creating Win2016 instance on GCP for later ADFS use.
 - install the Microsoft Remote Desktop client will help to copy/paste command and share local folder to remote instance.
-  - for  [Windwos](https://www.microsoft.com/en-us/p/microsoft-remote-desktop/9wzdncrfj3ps#activetab=pivot:overviewtab)
+  - for  [Windows](https://www.microsoft.com/en-us/p/microsoft-remote-desktop/9wzdncrfj3ps#activetab=pivot:overviewtab)
   - for [Mac](https://apps.apple.com/tw/app/microsoft-remote-desktop/id1295203466?mt=12)
 
-### B. Create Account on Cloud Identity for Directory Sync
+## B. Create Account on Cloud Identity for Directory Sync
 1. Login to [Google Admin](https://admin.google.com/) with your administrator account.
 
 <img src="images/cloud-identity-1.png" alt="Google Admin Console" width="800"/>
@@ -53,7 +51,7 @@ The installation process will covers:
 
 <img src="images/cloud-identity-3.png" alt="Assign Super Admin" width="800"/>
 
-### C. Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
+## C. Install Google Cloud Directory Sync and configure it to sync AD identities to Google Cloud Identity.
 
 [![Video: Install/Configure Google Cloud Directory Sync(GCDS) for AD sync](https://img.youtube.com/vi/u3fiFLDf4Tg/hqdefault.jpg)](https://youtu.be/u3fiFLDf4Tg)
 
@@ -86,7 +84,7 @@ Write-Host $Env:ProgramData
 
 3. When create users for sync, the **email** attribute must be set as it's the user ID in Cloud Identity.
 
-### D. Install and configure an Active Directory Federation Services(ADFS).
+## D. Install and configure an Active Directory Federation Services(ADFS).
 
 [![Video: Install and configure Active Directory Federated Services & Cloud Identity](https://img.youtube.com/vi/af_mjXHbSQQ/hqdefault.jpg)](https://youtu.be/af_mjXHbSQQ)
 
@@ -94,20 +92,18 @@ Write-Host $Env:ProgramData
 - configure mapping of AD email attribute to SAML NameID
 - configure Cloud Identity to use ADFS as external IDP.
 
-*Resource*:
-
 *Tips*:
 
 - a SSL cert in ptx format will be required in the installation, you can [Generate SSL certificate using Let's Encrypt](https://medium.com/@saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7)
 
-### E. Testing on the deployment.
+## E. Testing on the deployment.
 
 [![Video: Verify ADFS and Cloud Identity integration](https://img.youtube.com/vi/6u0WblK6Kb8/hqdefault.jpg)](https://youtu.be/6u0WblK6Kb8)
 
 - Login to GCP console with an AD user account.
 
 
-### F. Scheduling the AD sync
+## F. Scheduling the AD sync
 
 [![Video: Schedule GCDS to run periodically](https://img.youtube.com/vi/ssvLMPBh1WQ/hqdefault.jpg)](https://youtu.be/ssvLMPBh1WQ)
 
@@ -199,7 +195,7 @@ $task.Settings.ExecutionTimeLimit = "PT12H"
 Set-ScheduledTask $task
 ````
 
-### Usfel Note
+## Usfel Note
 - CLI for running GCDS
 ````
 // Simulate

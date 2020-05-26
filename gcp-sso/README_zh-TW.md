@@ -2,29 +2,27 @@
 
 在使用Google Cloud Platform時，當要登入至[GCP主控台](https://console.cloud.google.com/)，預設的使用者驗證來源為Google Cloud Identity。 只要擁有Google帳號的使用者，都可以非常輕易的登入使用。 然而，對於大多數的企業IT來說，既有公司的環境內早已有公司內定的身份認證服務，Microsoft Active Directory(AD)就是一個知名的例子。為了滿足企業用戶的需要，Google Cloud Identity支援與外部第三方身份認證服務(IDP)做整合。
 
-在以下文章，我將展示如何設定一個外部IDP給Cloud Identity作GCP主控台身份認證使用。 整個配置Demo將從頭開始，當作一間剛創立的公司從頭建起整個環境。而在這邊外部IDP的選擇，將採用Active Directory (AD)搭派Active Directory Federation Service (ADFS)作為公司哪認證服務。按需要外部IDP亦可能為其他方案，如：Okta, Keycloak等。
+在以下文章，我將展示如何設定一個外部IDP給Cloud Identity作GCP主控台身份認證使用。 整個配置Demo將從頭開始，當作一間剛創立的公司從頭建起整個環境。而在這邊外部IDP的選擇，將採用Active Directory (AD)搭配Active Directory Federation Service (ADFS)作為公司內認證服務。按需要外部IDP亦可能為其他方案，如：Okta, Keycloak等。
 
 ![GCP and ADFS](https://cloud.google.com/solutions/images/federating-gcp-with-ad-signing-in-to-gcp-console.svg)
 
 此篇文章是參考[Google Cloud混合雲解決方案教程](https://cloud.google.com/solutions/federating-gcp-with-active-directory-configuring-single-sign-on)，更多的資訊你可以在該連結內找到。
 
 ## 準備開始
-在按照步驟執行下面操作之前，請先確認已準備好所有預先準備。
-
-之後的安裝過程，簡略來說將包括：
-1.安裝和配置Active Directory（AD）服務。
-2.安裝Google Cloud Directory Sync，並將其配置為將AD身份同步到Google Cloud Identity。
-3.安裝並配置Active Directory Federation Servicer(ADFS)服務器。
-4.將Cloud Identity配置為使用ADFS進行用戶身份驗證。
-5.對整體方案進行測試。
-
-### 預先準備
+在按照步驟執行下面操作之前，請先確認已準備好所有*預先準備*：
 - 可以在Internet上解析的域名。
 - 準備一個有效網域憑證(之後將用在ADFS設定上)。
 - [註冊](https://cloud.google.com/identity/signup/premium/welcome)Google Cloud Identity。
 - 註冊將用於託管AD和ADFS的Google Cloud Platform帳戶。
 
-### A. 安裝與配置Active Directory (AD) 伺服器.
+之後的安裝過程，簡略來說將包括：
+1. 安裝和配置Active Directory（AD）服務。
+2. 安裝Google Cloud Directory Sync，並將其配置為將AD身份同步到Google Cloud Identity。
+3. 安裝並配置Active Directory Federation Servicer(ADFS)服務器。
+4. 將Cloud Identity配置為使用ADFS進行用戶身份驗證。
+5. 對整體方案進行測試。
+
+## A. 安裝與配置Active Directory (AD) 伺服器.
 
 [![Video: 安裝 Microsoft Active Directory(AD)在Google Cloud Platform上](https://img.youtube.com/vi/ztP-Yvn8TZE/hqdefault.jpg)](https://youtu.be/ztP-Yvn8TZE)
 
@@ -34,10 +32,10 @@
 *提示*:
 - 當配置創建Windows 2016伺服器時，為了之後ADFS使用，記得先勾選`允許 HTTPS 流量`。
 - 安裝Microsoft Remote Desktop用戶端程式，以協助在遠端桌面中複製/貼上命令，並支持與本機作分享資料夾。
-  - for [Windwos](https://www.microsoft.com/en-us/p/microsoft-remote-desktop/9wzdncrfj3ps#activetab=pivot:overviewtab)
+  - for [Windows](https://www.microsoft.com/en-us/p/microsoft-remote-desktop/9wzdncrfj3ps#activetab=pivot:overviewtab)
   - for [Mac](https://apps.apple.com/tw/app/microsoft-remote-desktop/id1295203466?mt=12)
 
-### B. Create Account on Cloud Identity for Directory Sync
+## B. 於Cloud Identity上創建帳號用於Directory同步
 1. 使用你的`管理者帳號`登入到[Google Admin](https://admin.google.com/)。
 
 <img src="images/cloud-identity-1.png" alt="Google Admin Console" width="800"/>
@@ -52,7 +50,7 @@
 
 <img src="images/cloud-identity-3.png" alt="Assign Super Admin" width="800"/>
 
-### C. 安裝Google Cloud Directory Sync並配置它，作AD身份同步至Google Cloud Identity
+## C. 安裝Google Cloud Directory Sync並配置它，作AD身份同步至Google Cloud Identity
 
 [![Video: 安裝/配置 Google Cloud Directory Sync(GCDS)用於AD同步](https://img.youtube.com/vi/u3fiFLDf4Tg/hqdefault.jpg)](https://youtu.be/u3fiFLDf4Tg)
 
@@ -85,7 +83,7 @@ Write-Host $Env:ProgramData
 
 3. 當產生AD帳號用來測試同步功能時，**email**欄位必須設置，該欄位之後將被配置成為Cloud Identity用戶ID。
 
-### D. 安裝與配置 Active Directory Federation Services(ADFS).
+## D. 安裝與配置 Active Directory Federation Services(ADFS).
 
 [![Video: 安裝與配置 Active Directory Federated Services 與 Cloud Identity](https://img.youtube.com/vi/af_mjXHbSQQ/hqdefault.jpg)](https://youtu.be/af_mjXHbSQQ)
 
@@ -93,20 +91,18 @@ Write-Host $Env:ProgramData
 - 配置將AD email欄位映射到SAML NameID。
 - 配置Cloud Identity以採用ADFS作為其外部IDP。
 
-*資源*:
-
 *提示*:
 
 - 在ADFS安裝過程中，一個有效的PTX格式的SSL憑證會被需要，憑證產生與簽署的部分可以參考：[使用Let's Encrypt產生SSL憑證](https://medium.com/@saurabh6790/generate-wildcard-ssl-certificate-using-lets-encrypt-certbot-273e432794d7)
 
-### E. 情境測試
+## E. 情境測試
 
 [![Video: 驗證ADFS與Cloud Identity之整合](https://img.youtube.com/vi/6u0WblK6Kb8/hqdefault.jpg)](https://youtu.be/6u0WblK6Kb8)
 
 - 使用AD帳戶登入GCP主控台。
 
 
-### F. 排程AD同步
+## F. 排程AD同步
 
 [![Video: 排程週期性運行GCDS](https://img.youtube.com/vi/ssvLMPBh1WQ/hqdefault.jpg)](https://youtu.be/ssvLMPBh1WQ)
 
@@ -198,7 +194,7 @@ $task.Settings.ExecutionTimeLimit = "PT12H"
 Set-ScheduledTask $task
 ````
 
-### 延伸筆記
+## 延伸筆記
 - 用命令列手動執行GCDS
 ````
 // Simulate
